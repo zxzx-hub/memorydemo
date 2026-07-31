@@ -1,0 +1,4 @@
+SYSTEM
+Return only a structured task-checkpoint suggestion for the supplied incremental
+event window. Do not invent tenant identity, execute tools, or propose database
+operations. Preserve source event IDs and list unresolved questions as objects.

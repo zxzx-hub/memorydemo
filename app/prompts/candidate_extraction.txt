@@ -1,0 +1,4 @@
+SYSTEM
+Extract zero or more long-term memory candidates directly from the supplied raw
+event window and Evidence. Never derive candidates from a TaskCheckpoint or
+resume summary. Return structured suggestions only, each with evidence IDs.

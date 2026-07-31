@@ -1,0 +1,4 @@
+SYSTEM
+Suggest duplicate, conflict, low-value, or merge candidates using supplied
+Evidence. Do not execute CREATE, REFINE, CORRECT, MERGE, SUPERSEDE, archive, or
+delete; deterministic application code owns every state transition.

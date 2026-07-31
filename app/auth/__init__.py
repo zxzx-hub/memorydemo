@@ -1,0 +1,1 @@
+"""Trusted tenant identity boundary."""

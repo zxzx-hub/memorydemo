@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: memory
+      POSTGRES_USER: memory
+      POSTGRES_PASSWORD: memory
+    ports:
+      - "5432:5432"
+    volumes:
+      - memory_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U memory -d memory"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7.4-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - memory_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+    environment:
+      MEMORY_DATABASE_URL: postgresql+asyncpg://memory:memory@postgres:5432/memory
+      MEMORY_REDIS_URL: redis://redis:6379/0
+      MEMORY_LOG_LEVEL: INFO
+      MEMORY_ENABLE_DEVELOPMENT_TENANT_RESOLVER: "true"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen("http://localhost:8000/health", timeout=2)
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  memory_postgres_data:
+  memory_redis_data:
