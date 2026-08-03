@@ -57,7 +57,5 @@ class LLMRetrievalPlanProvider:
                 recommended_mode,
             )
         if plan.recommended_mode is not recommended_mode:
-            plan = plan.model_copy(
-                update={"recommended_mode": recommended_mode}
-            )
+            plan = plan.model_copy(update={"recommended_mode": recommended_mode})
         return plan

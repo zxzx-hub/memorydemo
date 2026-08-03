@@ -1,0 +1,441 @@
+/* ============ 基础变量 ============ */
+:root {
+    --bg: #0f1115;
+    --panel: #161922;
+    --panel-2: #1d212c;
+    --border: #262b36;
+    --text: #e7eaf0;
+    --text-dim: #9aa3b2;
+    --accent: #5b8cff;
+    --accent-hover: #7aa1ff;
+    --user: #2563eb;
+    --agent: #374151;
+    --success: #10b981;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --code-bg: #0b0d12;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+button, input, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+/* ============ 布局 ============ */
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand h1 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.brand .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success);
+}
+
+.brand .badge {
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.tenants {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tenants label {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    color: var(--text-dim);
+    gap: 3px;
+}
+
+.tenants input {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 8px;
+    width: 130px;
+    outline: none;
+}
+
+.tenants input:focus {
+    border-color: var(--accent);
+}
+
+.tenants button {
+    align-self: flex-end;
+    padding: 6px 12px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.tenants button:hover {
+    background: var(--border);
+}
+
+.layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 1px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.chat, .memory-panel {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ============ 聊天区 ============ */
+.chat-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--panel);
+}
+
+.chat-header h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+button {
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+}
+
+button.primary {
+    background: var(--accent);
+    color: white;
+}
+
+button.primary:hover {
+    background: var(--accent-hover);
+}
+
+button.ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+button.ghost:hover {
+    background: var(--panel-2);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.message.user {
+    align-self: flex-end;
+    background: var(--user);
+    color: white;
+}
+
+.message.agent {
+    align-self: flex-start;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+}
+
+.message.system {
+    align-self: center;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 12px;
+    font-style: italic;
+}
+
+.message .meta {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.message.agent .meta {
+    color: var(--text-dim);
+}
+
+.composer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    background: var(--panel);
+}
+
+.composer textarea {
+    flex: 1;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    resize: none;
+    outline: none;
+    max-height: 120px;
+}
+
+.composer textarea:focus {
+    border-color: var(--accent);
+}
+
+.composer button {
+    align-self: flex-end;
+    padding: 8px 20px;
+}
+
+/* ============ 记忆面板 ============ */
+.panel-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--panel);
+}
+
+.panel-header h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.status.busy {
+    color: var(--warn);
+}
+
+.status.error {
+    color: var(--danger);
+}
+
+.status.ok {
+    color: var(--success);
+}
+
+.panel-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    color: var(--text);
+    border-bottom-color: var(--accent);
+}
+
+.panel-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+#contextView {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.memory-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 13px;
+}
+
+.memory-card .type {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 1px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-bottom: 6px;
+}
+
+.memory-card .content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 6px;
+}
+
+.memory-card .meta-row {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.memory-card .meta-row span {
+    background: var(--bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.empty {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 40px 20px;
+    font-size: 13px;
+}
+
+pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* ============ 底部日志 ============ */
+.logbar {
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+    padding: 8px 20px;
+}
+
+.logbar summary {
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size: 12px;
+    padding: 4px 0;
+}
+
+#logView {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 8px;
+    font-size: 11px;
+}
+
+.log-entry {
+    border-bottom: 1px solid var(--border);
+    padding: 6px 0;
+}
+
+.log-entry .method {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.log-entry .method.POST { color: var(--accent); }
+.log-entry .status.ok { color: var(--success); }
+.log-entry .status.err { color: var(--danger); }
+
+/* ============ 滚动条 ============ */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3f4b; }

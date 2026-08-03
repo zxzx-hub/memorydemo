@@ -58,6 +58,15 @@ def test_ready_returns_503_without_leaking_failure_details() -> None:
     }
 
 
+def test_backend_does_not_mount_frontend_root(
+    ready_probe: ReadinessProbe,
+) -> None:
+    with TestClient(create_app(readiness_probe=ready_probe)) as client:
+        response = client.get("/")
+
+    assert response.status_code == 404
+
+
 def test_memory_route_fails_closed_without_tenant_context(
     ready_probe: ReadinessProbe,
 ) -> None:

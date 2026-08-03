@@ -28,8 +28,10 @@ services:
       retries: 10
 
   api:
+    profiles:
+      - container-api
     build:
-      context: .
+      context: ./api
     environment:
       MEMORY_DATABASE_URL: postgresql+asyncpg://memory:memory@postgres:5432/memory
       MEMORY_REDIS_URL: redis://redis:6379/0

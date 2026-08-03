@@ -150,9 +150,7 @@ async def test_postgresql_reread_and_usage_are_tenant_scoped(
                 )
             )
         ).all()
-    assert {
-        (item.tenant_id, item.recall_count, item.use_count) for item in usage
-    } == {
+    assert {(item.tenant_id, item.recall_count, item.use_count) for item in usage} == {
         ("tenant_read_a", 1, 1),
         ("tenant_read_b", 1, 1),
     }

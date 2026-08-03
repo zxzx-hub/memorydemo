@@ -260,9 +260,7 @@ async def test_express_supports_memory_key_and_type_normalized_key(
         "memory_exact",
         memory_type=MemoryType.PREFERENCE,
     )
-    item = item.model_copy(
-        update={"normalized_key": "preference.exact"}
-    )
+    item = item.model_copy(update={"normalized_key": "preference.exact"})
     add_memory(database, "tenant_a", item)
     exact.items[("tenant_a", "preference:exact")] = "memory_exact"
 
@@ -283,10 +281,7 @@ async def test_express_supports_memory_key_and_type_normalized_key(
     )
 
     assert by_key.context_package.preferences[0].memory_id == "memory_exact"
-    assert (
-        by_normalized_key.context_package.preferences[0].memory_id
-        == "memory_exact"
-    )
+    assert by_normalized_key.context_package.preferences[0].memory_id == "memory_exact"
     assert exact.resolve_calls == 1
     assert planner.calls == vector.search_calls == graph.traverse_calls == 0
 

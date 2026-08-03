@@ -17,20 +17,15 @@ depends_on: str | Sequence[str] | None = None
 
 def upgrade() -> None:
     statements = (
-        "ADD COLUMN IF NOT EXISTS sensitivity VARCHAR(64) "
-        "NOT NULL DEFAULT 'none'",
-        "ADD COLUMN IF NOT EXISTS language VARCHAR(32) "
-        "NOT NULL DEFAULT 'und'",
-        "ADD COLUMN IF NOT EXISTS type_payload JSONB "
-        "NOT NULL DEFAULT '{}'::jsonb",
+        "ADD COLUMN IF NOT EXISTS sensitivity VARCHAR(64) NOT NULL DEFAULT 'none'",
+        "ADD COLUMN IF NOT EXISTS language VARCHAR(32) NOT NULL DEFAULT 'und'",
+        "ADD COLUMN IF NOT EXISTS type_payload JSONB NOT NULL DEFAULT '{}'::jsonb",
         "ADD COLUMN IF NOT EXISTS valid_from TIMESTAMPTZ",
         "ADD COLUMN IF NOT EXISTS valid_to TIMESTAMPTZ",
-        "ADD COLUMN IF NOT EXISTS staleness_score DOUBLE PRECISION "
-        "NOT NULL DEFAULT 0",
+        "ADD COLUMN IF NOT EXISTS staleness_score DOUBLE PRECISION NOT NULL DEFAULT 0",
         "ADD COLUMN IF NOT EXISTS suggestion_reason VARCHAR(512)",
         "ADD COLUMN IF NOT EXISTS suggestion_confidence DOUBLE PRECISION",
-        "ADD COLUMN IF NOT EXISTS uncertainties JSONB "
-        "NOT NULL DEFAULT '[]'::jsonb",
+        "ADD COLUMN IF NOT EXISTS uncertainties JSONB NOT NULL DEFAULT '[]'::jsonb",
         "ADD COLUMN IF NOT EXISTS possible_duplicates JSONB "
         "NOT NULL DEFAULT '[]'::jsonb",
         "ADD COLUMN IF NOT EXISTS possible_conflicts JSONB "
@@ -71,10 +66,7 @@ def downgrade() -> None:
         "ALTER TABLE memory_candidates "
         "DROP CONSTRAINT IF EXISTS fk_candidate_tenant_governed_memory"
     )
-    op.execute(
-        "ALTER TABLE long_term_memory_versions "
-        "DROP COLUMN IF EXISTS snapshot"
-    )
+    op.execute("ALTER TABLE long_term_memory_versions DROP COLUMN IF EXISTS snapshot")
     for column in (
         "governed_at",
         "governed_memory_version",
@@ -93,6 +85,4 @@ def downgrade() -> None:
         "language",
         "sensitivity",
     ):
-        op.execute(
-            f"ALTER TABLE memory_candidates DROP COLUMN IF EXISTS {column}"
-        )
+        op.execute(f"ALTER TABLE memory_candidates DROP COLUMN IF EXISTS {column}")

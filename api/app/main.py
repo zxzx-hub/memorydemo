@@ -4,6 +4,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.error_handlers import register_error_handlers
 from app.api.routes.health import router as health_router
@@ -136,6 +137,7 @@ def create_app(
     )
     application.include_router(health_router)
     application.include_router(memory_router)
+
     register_error_handlers(application)
     resolved_tenant_resolver = tenant_resolver
     if (
@@ -148,6 +150,23 @@ def create_app(
             TenantContextMiddleware,
             resolver=resolved_tenant_resolver,
         )
+    # CORS 必须在 TenantContextMiddleware 之后注册 —— Starlette 的
+    # add_middleware 是「最后调用、最外层」，需要 CORS 作为最外层
+    # 才能在 OPTIONS 预检时正确响应，不被 TenantContext 提前拒绝。
+    application.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_headers=[
+            "Content-Type",
+            "X-Development-Tenant-ID",
+            "X-Development-Principal-ID",
+            "X-Trace-ID",
+        ],
+        allow_methods=["GET", "POST", "OPTIONS"],
+        expose_headers=["X-Trace-ID"],
+        max_age=600,
+    )
     return application
 
 

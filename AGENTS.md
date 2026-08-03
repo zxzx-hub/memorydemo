@@ -4,8 +4,8 @@
 
 ## 1. 事实来源与规则优先级
 
-- `docs/agent-memory-design.html` 是本项目的领域架构事实来源。开始任何开发、评审或修复前，必须阅读本文件和与任务相关的设计文档章节。
-- 若代码、测试、注释或其他文档与领域设计冲突，以 `docs/agent-memory-design.html` 和本文件中的架构不变量为准；不得通过降低测试要求来保留冲突实现。
+- `api/docs/agent-memory-design.html` 是本项目的领域架构事实来源。开始任何开发、评审或修复前，必须阅读本文件和与任务相关的设计文档章节。
+- 若代码、测试、注释或其他文档与领域设计冲突，以 `api/docs/agent-memory-design.html` 和本文件中的架构不变量为准；不得通过降低测试要求来保留冲突实现。
 - 本文件只固化工程约束，不取代领域设计中的对象定义、状态机、检索路由、生命周期规则和验收标准。
 
 ## 2. 项目目标与范围
@@ -186,15 +186,18 @@ conda run -n memory python -m pytest
 ```
 
 - 格式检查、静态检查、Alembic、演示脚本和服务启动也必须通过 `conda run -n memory ...` 或在明确激活 `memory` 后执行。
+- 后端 Python 命令默认在 `api/` 目录中执行，因为 `pyproject.toml`、`alembic.ini`、`app/`、`tests/` 和 `migrations/` 均位于该目录下。
+- 前端本地静态服务也必须通过 `memory` conda 环境启动，例如在 `front/` 目录执行 `conda run -n memory python -m http.server 5500`。
+- Docker 默认只用于 PostgreSQL、Redis 等基础设施。若临时使用 API 容器，它运行在容器 Python 环境中，不等同于宿主机 `memory` conda 环境，不能作为本项目常规开发验证路径。
 - 开始涉及 Python 的任务时先确认环境存在且 Python 主版本符合 3.12。环境缺失或版本不符时应明确报告，不得静默改用系统 Python。
-- 依赖和命令以仓库内的 `pyproject.toml`、锁文件、Compose 配置和任务脚本为准；不得把仅存在于全局环境的包当作项目依赖。
+- 依赖和命令以仓库内的 `api/pyproject.toml`、锁文件、Compose 配置和任务脚本为准；不得把仅存在于全局环境的包当作项目依赖。
 
 ## 6. 工程执行流程
 
 每次开始任务时必须按顺序执行：
 
 1. 阅读根目录 `AGENTS.md`。
-2. 阅读与任务相关的设计文档；涉及领域语义时以 `docs/agent-memory-design.html` 为必读来源。
+2. 阅读与任务相关的设计文档；涉及领域语义时以 `api/docs/agent-memory-design.html` 为必读来源。
 3. 检查已有代码、迁移、测试、夹具和配置，避免创建重复模块或第二套概念命名。
 4. 在修改前给出本次计划和影响范围。
 5. 以小步、局部修改完成任务，不一次重写整个项目，不顺手改动无关代码。

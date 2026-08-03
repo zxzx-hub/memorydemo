@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Memory Service · 测试控制台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- 顶部栏：租户上下文 -->
+        <header class="topbar">
+            <div class="brand">
+                <span class="dot"></span>
+                <h1>Agent Memory Service</h1>
+                <span class="badge">测试控制台</span>
+            </div>
+            <div class="tenants">
+                <label>API Base
+                    <input id="apiBase" value="http://127.0.0.1:8000">
+                </label>
+                <label>Tenant ID
+                    <input id="tenantId" value="tenant_a">
+                </label>
+                <label>User ID
+                    <input id="principalId" value="user_demo">
+                </label>
+                <label>Workspace
+                    <input id="workspaceId" value="ws_001">
+                </label>
+                <label>Task
+                    <input id="taskId" value="task_001">
+                </label>
+                <button id="healthBtn" class="ghost">检查后端</button>
+            </div>
+        </header>
+
+        <!-- 主区：聊天 + 记忆面板 -->
+        <main class="layout">
+            <!-- 左侧：聊天 -->
+            <section class="chat">
+                <div class="chat-header">
+                    <h2>对话</h2>
+                    <div class="actions">
+                        <button id="consolidateBtn" class="primary">Consolidate Once</button>
+                        <button id="readBtn" class="primary">读取记忆</button>
+                        <button id="gcBtn" class="ghost">GC 评估</button>
+                        <button id="clearBtn" class="ghost">清空对话</button>
+                    </div>
+                </div>
+                <div id="messages" class="messages"></div>
+                <div class="composer">
+                    <textarea
+                        id="input"
+                        placeholder="输入消息，回车发送，Shift+回车换行…"
+                        rows="2"></textarea>
+                    <button id="sendBtn" class="primary">发送</button>
+                </div>
+            </section>
+
+            <!-- 右侧：记忆面板 -->
+            <aside class="memory-panel">
+                <div class="panel-header">
+                    <h2>记忆 / 检索结果</h2>
+                    <span id="panelStatus" class="status">就绪</span>
+                </div>
+                <div class="panel-tabs">
+                    <button class="tab active" data-tab="context">Context Package</button>
+                    <button class="tab" data-tab="raw">原始响应</button>
+                </div>
+                <div class="panel-body">
+                    <div id="contextView" class="tab-content active"></div>
+                    <pre id="rawView" class="tab-content" hidden></pre>
+                </div>
+            </aside>
+        </main>
+
+        <!-- 底部日志（请求/响应） -->
+        <footer class="logbar">
+            <details>
+                <summary>请求日志（最近 5 条）</summary>
+                <pre id="logView"></pre>
+            </details>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
