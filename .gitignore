@@ -10,3 +10,4 @@ htmlcov/
 dist/
 build/
 .venv/
+chatbot/data/*.db

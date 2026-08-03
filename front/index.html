@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Memory Service · 测试控制台</title>
+    <title>Agent Memory Service · 记忆聊天 Demo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,9 +13,12 @@
             <div class="brand">
                 <span class="dot"></span>
                 <h1>Agent Memory Service</h1>
-                <span class="badge">测试控制台</span>
+                <span class="badge">记忆聊天 Demo</span>
             </div>
             <div class="tenants">
+                <label>Chatbot Base
+                    <input id="chatbotBase" value="http://127.0.0.1:8787">
+                </label>
                 <label>API Base
                     <input id="apiBase" value="http://127.0.0.1:8000">
                 </label>
@@ -26,12 +29,12 @@
                     <input id="principalId" value="user_demo">
                 </label>
                 <label>Workspace
-                    <input id="workspaceId" value="ws_001">
+                    <input id="workspaceId" value="chatbot_ws">
                 </label>
-                <label>Task
-                    <input id="taskId" value="task_001">
+                <label>Session / Task
+                    <input id="taskId" value="demo">
                 </label>
-                <button id="healthBtn" class="ghost">检查后端</button>
+                <button id="healthBtn" class="ghost">检查链路</button>
             </div>
         </header>
 
@@ -40,10 +43,10 @@
             <!-- 左侧：聊天 -->
             <section class="chat">
                 <div class="chat-header">
-                    <h2>对话</h2>
+                    <h2>和记忆机器人对话</h2>
                     <div class="actions">
-                        <button id="consolidateBtn" class="primary">Consolidate Once</button>
-                        <button id="readBtn" class="primary">读取记忆</button>
+                        <button id="readBtn" class="ghost">调试读取记忆</button>
+                        <button id="consolidateBtn" class="ghost">调试 Consolidate</button>
                         <button id="gcBtn" class="ghost">GC 评估</button>
                         <button id="clearBtn" class="ghost">清空对话</button>
                     </div>
@@ -52,16 +55,16 @@
                 <div class="composer">
                     <textarea
                         id="input"
-                        placeholder="输入消息，回车发送，Shift+回车换行…"
+                        placeholder="输入消息，回车发送给机器人，Shift+回车换行…"
                         rows="2"></textarea>
-                    <button id="sendBtn" class="primary">发送</button>
+                    <button id="sendBtn" class="primary">发送给机器人</button>
                 </div>
             </section>
 
             <!-- 右侧：记忆面板 -->
             <aside class="memory-panel">
                 <div class="panel-header">
-                    <h2>记忆 / 检索结果</h2>
+                    <h2>记忆上下文 / 调试结果</h2>
                     <span id="panelStatus" class="status">就绪</span>
                 </div>
                 <div class="panel-tabs">

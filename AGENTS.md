@@ -187,7 +187,7 @@ conda run -n memory python -m pytest
 
 - 格式检查、静态检查、Alembic、演示脚本和服务启动也必须通过 `conda run -n memory ...` 或在明确激活 `memory` 后执行。
 - 后端 Python 命令默认在 `api/` 目录中执行，因为 `pyproject.toml`、`alembic.ini`、`app/`、`tests/` 和 `migrations/` 均位于该目录下。
-- 前端本地静态服务也必须通过 `memory` conda 环境启动，例如在 `front/` 目录执行 `conda run -n memory python -m http.server 5500`。
+- 前端本地静态服务和 `chatbot/` 聊天机器人也必须通过 `memory` conda 环境启动，例如在 `front/` 目录执行 `conda run -n memory python -m http.server 5500`，在 `chatbot/` 目录执行 `conda run -n memory uvicorn main:app --host 127.0.0.1 --port 8787 --reload`。
 - Docker 默认只用于 PostgreSQL、Redis 等基础设施。若临时使用 API 容器，它运行在容器 Python 环境中，不等同于宿主机 `memory` conda 环境，不能作为本项目常规开发验证路径。
 - 开始涉及 Python 的任务时先确认环境存在且 Python 主版本符合 3.12。环境缺失或版本不符时应明确报告，不得静默改用系统 Python。
 - 依赖和命令以仓库内的 `api/pyproject.toml`、锁文件、Compose 配置和任务脚本为准；不得把仅存在于全局环境的包当作项目依赖。

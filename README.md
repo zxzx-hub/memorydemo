@@ -6,9 +6,10 @@
 memorydemo/
   api/     FastAPI 后端服务、数据库迁移、测试和演示脚本
   front/   独立测试前端，浏览器通过 HTTP 调用后端 API
+  chatbot/ 独立聊天机器人，通过 HTTP 调用后端记忆 API
 ```
 
-`front/` 不挂载到 `api/app/main.py`。后端只负责 API、数据库、缓存和领域服务；前端独立启动，只通过 `API Base` 访问后端。
+`front/` 和 `chatbot/` 都不挂载到 `api/app/main.py`。后端只负责 API、数据库、缓存和领域服务；前端和聊天机器人独立启动，只通过 HTTP 访问后端。
 
 ## 当前能力
 
@@ -45,9 +46,9 @@ conda run -n memory python -m pip install -e ".[dev]"
 
 根目录的 `.env.example` 可复制为 `.env` 后用于记录本地配置。不要提交 `.env`。
 
-## 推荐启动方式：Docker 跑依赖，conda 跑后端和前端
+## 推荐启动方式：Docker 跑依赖，conda 跑后端、chatbot 和前端
 
-本项目要求后端 API 和前端静态服务都在宿主机名为 `memory` 的 conda 环境中运行。Docker 默认只用于 PostgreSQL 和 Redis。
+本项目要求后端 API、chatbot 和前端静态服务都在宿主机名为 `memory` 的 conda 环境中运行。Docker 默认只用于 PostgreSQL 和 Redis。
 
 先在仓库根目录启动依赖：
 
@@ -115,7 +116,39 @@ http://127.0.0.1:5500/
 http://127.0.0.1:8000
 ```
 
+前端页面中的 `Chatbot Base` 保持为：
+
+```text
+http://127.0.0.1:8787
+```
+
 后端保留 CORS，用于允许独立前端访问 `/v1/memory/*` API。
+
+## 启动聊天机器人
+
+聊天机器人位于：
+
+```text
+D:\project\memorydemo\chatbot
+```
+
+启动前请先按上文启动 PostgreSQL、Redis 和后端 API。然后：
+
+```powershell
+cd D:\project\memorydemo\chatbot
+Copy-Item .env.example .env
+# 打开 .env，把 DeepSeek API Key 写入 DEEPSEEK_API_KEY。
+conda run -n memory python -m pip install -r requirements.txt
+conda run -n memory uvicorn main:app --host 127.0.0.1 --port 8787 --reload
+```
+
+chatbot 默认连接：
+
+```text
+http://127.0.0.1:8000
+```
+
+它通过开发请求头向后端提供租户上下文，不会把 `tenant_id` 放入业务请求正文。
 
 ## 开发检查
 
