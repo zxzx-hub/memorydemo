@@ -16,7 +16,8 @@ from openai import AsyncOpenAI
 from pydantic import BaseModel, Field
 
 
-load_dotenv()
+CHATBOT_DIR = Path(__file__).resolve().parent
+load_dotenv(CHATBOT_DIR / ".env")
 
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
@@ -35,7 +36,7 @@ CHATBOT_USER_ID = os.getenv("CHATBOT_USER_ID", "user_demo")
 CHATBOT_AGENT_ID = os.getenv("CHATBOT_AGENT_ID", "chatbot")
 CHATBOT_AGENT_ROLE = os.getenv("CHATBOT_AGENT_ROLE", "assistant")
 CHATBOT_WORKSPACE_ID = os.getenv("CHATBOT_WORKSPACE_ID", "chatbot_ws")
-CHATBOT_DATA_DIR = Path(os.getenv("CHATBOT_DATA_DIR", Path(__file__).parent / "data"))
+CHATBOT_DATA_DIR = Path(os.getenv("CHATBOT_DATA_DIR", CHATBOT_DIR / "data"))
 CHATBOT_DB_PATH = CHATBOT_DATA_DIR / "chatbot.db"
 _memory_service_url_cache: str | None = None
 
@@ -68,7 +69,13 @@ app.add_middleware(
     expose_headers=["X-Trace-ID"],
     max_age=600,
 )
-llm_client = AsyncOpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
+def get_llm_client() -> AsyncOpenAI:
+    if not DEEPSEEK_API_KEY:
+        raise HTTPException(
+            status_code=500,
+            detail="chatbot/.env 中缺少 DEEPSEEK_API_KEY",
+        )
+    return AsyncOpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
 
 
 class ChatRequest(BaseModel):
@@ -538,9 +545,6 @@ def _development_identity_from_request(request: Request) -> tuple[str | None, st
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
-    if not DEEPSEEK_API_KEY:
-        raise HTTPException(status_code=500, detail="环境变量或 .env 中缺少 DEEPSEEK_API_KEY")
-
     session_id = ensure_session(request.session_id, request.message)
     history_messages = get_recent_llm_messages(session_id, request.history_limit)
     tenant_id, principal_id = _development_identity_from_request(http_request)
@@ -554,7 +558,7 @@ async def chat(request: ChatRequest, http_request: Request) -> ChatResponse:
         principal_id=principal_id,
     )
 
-    completion = await llm_client.chat.completions.create(
+    completion = await get_llm_client().chat.completions.create(
         model=DEEPSEEK_MODEL,
         messages=build_messages(request.message, memory_context, history_messages),
     )
