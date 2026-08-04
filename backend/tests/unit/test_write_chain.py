@@ -5,26 +5,26 @@ from datetime import UTC, datetime
 import pytest
 
 from service.auth.tenant_context import TenantContext
-from service.domain.commands import (
+from domain.commands import (
     ConsolidateWriteRequest,
     EventInput,
     EventSignals,
     EventWriteRequest,
     PromoteCandidatesWriteRequest,
 )
-from service.domain.enums import ConsolidationReason
-from service.infrastructure.consolidation import (
+from domain.enums import ConsolidationReason
+from infrastructure.consolidation import (
     DeterministicConsolidator,
     MockLLMConsolidator,
 )
-from service.infrastructure.memory import (
+from infrastructure.memory import (
     InMemoryWorkingMemoryStore,
     InMemoryWriteDatabase,
     InMemoryWriteUnitOfWorkFactory,
 )
-from service.services.consolidate_once import ConsolidateOnceService
-from service.services.consolidation_policy import ConsolidationPolicy
-from service.services.default_memory_service import DefaultMemoryService
+from service.write.consolidate_once import ConsolidateOnceService
+from service.write.consolidation_policy import ConsolidationPolicy
+from service.memory_facade import DefaultMemoryService
 
 
 class FixedClock:

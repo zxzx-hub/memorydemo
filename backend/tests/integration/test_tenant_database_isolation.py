@@ -10,11 +10,11 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
 from service.auth.tenant_context import TenantContext
 from service.core.errors import TenantContextRequiredError
-from service.infrastructure.db.models.memory import (
+from infrastructure.db.models.memory import (
     LongTermMemoryModel,
     TaskMemoryModel,
 )
-from service.infrastructure.db.repositories.long_term_memory import (
+from infrastructure.db.repositories.long_term_memory import (
     SqlAlchemyLongTermMemoryRepository,
 )
 

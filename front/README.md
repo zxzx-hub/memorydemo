@@ -27,9 +27,10 @@ docker compose up -d postgres redis
 
 ```powershell
 cd D:\project\memorydemo\backend
+conda run -n memory python -m pip install -e ".[dev]"
 conda run -n memory alembic upgrade head
 $env:MEMORY_ENABLE_DEVELOPMENT_TENANT_RESOLVER = "true"
-conda run -n memory uvicorn service.main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
+conda run -n memory uvicorn main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
 ```
 
 后端 API 地址默认为：

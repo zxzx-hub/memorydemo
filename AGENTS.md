@@ -26,7 +26,7 @@ MVP 必须完成以下闭环：
 → 生命周期治理和删除
 ```
 
-第一版只开发后端服务、数据库、测试和演示脚本，不开发前端管理页面。
+核心 MVP 先完成后端服务、数据库、测试和演示脚本。仓库可以包含独立的 `front/` 和 `chatbot/` 演示应用，但它们不属于后端业务核心，不得挂载到 `backend/src/main.py`，也不能绕过后端 API 直接访问数据库。
 
 ## 3. 架构不变量
 
@@ -186,7 +186,7 @@ conda run -n memory python -m pytest
 ```
 
 - 格式检查、静态检查、Alembic、演示脚本和服务启动也必须通过 `conda run -n memory ...` 或在明确激活 `memory` 后执行。
-- 后端 Python 命令默认在 `backend/` 目录中执行，因为 `pyproject.toml`、`alembic.ini`、`src/service/`、`tests/` 和 `migrations/` 均位于该目录下。
+- 后端 Python 命令默认在 `backend/` 目录中执行，因为 `pyproject.toml`、`alembic.ini`、`src/`、`tests/` 和 `migrations/` 均位于该目录下；FastAPI 入口为 `src/main.py`，应用服务位于 `src/service/`。
 - 前端本地静态服务和 `chatbot/` 聊天机器人也必须通过 `memory` conda 环境启动，例如在 `front/` 目录执行 `conda run -n memory python -m http.server 5500`，在 `chatbot/` 目录执行 `conda run -n memory uvicorn main:app --host 127.0.0.1 --port 8787 --reload`。
 - Docker 默认只用于 PostgreSQL、Redis 等基础设施。若临时使用 API 容器，它运行在容器 Python 环境中，不等同于宿主机 `memory` conda 环境，不能作为本项目常规开发验证路径。
 - 开始涉及 Python 的任务时先确认环境存在且 Python 主版本符合 3.12。环境缺失或版本不符时应明确报告，不得静默改用系统 Python。

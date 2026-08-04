@@ -8,8 +8,8 @@ from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from service.core.config import get_settings
-from service.infrastructure.db import models as memory_models
-from service.infrastructure.db.base import Base
+from infrastructure.db import models as memory_models
+from infrastructure.db.base import Base
 
 _ = memory_models
 

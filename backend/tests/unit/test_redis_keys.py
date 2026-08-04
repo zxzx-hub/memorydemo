@@ -4,7 +4,7 @@ import pytest
 
 from service.auth.tenant_context import TenantContext
 from service.core.errors import TenantContextRequiredError
-from service.infrastructure.redis.keys import tenant_redis_key
+from infrastructure.redis.keys import tenant_redis_key
 
 
 def test_redis_keys_do_not_collide_across_tenants(

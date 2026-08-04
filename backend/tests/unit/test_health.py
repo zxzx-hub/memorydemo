@@ -3,7 +3,7 @@
 from fastapi.testclient import TestClient
 
 from service.core.health import ReadinessProbe
-from service.main import create_app
+from main import create_app
 from tests.conftest import StubDependency
 
 

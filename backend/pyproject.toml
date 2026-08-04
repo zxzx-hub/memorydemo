@@ -31,7 +31,7 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["service*"]
+include = ["api*", "domain*", "infrastructure*", "ports*", "service*"]
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
@@ -57,7 +57,7 @@ python_version = "3.12"
 strict = true
 plugins = ["pydantic.mypy"]
 mypy_path = ["src"]
-packages = ["service"]
+packages = ["api", "domain", "infrastructure", "ports", "service"]
 exclude = ["migrations"]
 
 [[tool.mypy.overrides]]

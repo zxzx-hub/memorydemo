@@ -11,7 +11,7 @@ memorydemo/
 └─ AGENTS.md  工程约束
 ~~~
 
-front/ 和 chatbot/ 不挂载到 backend/src/service/main.py。后端只负责 API、数据库、Redis 和记忆领域服务；三个应用通过 HTTP 连接。
+front/ 和 chatbot/ 不挂载到 backend/src/main.py。后端只负责 API、数据库、Redis 和记忆领域服务；三个应用通过 HTTP 连接。
 
 ## 当前链路
 
@@ -94,11 +94,11 @@ Redis:      127.0.0.1:6379 / database=0
 conda activate memory
 cd D:\project\memorydemo\backend
 
-conda run -n memory python -m pip install -e ".[dev]"
-conda run -n memory alembic upgrade head
+pip install -e ".[dev]"
+alembic upgrade head
 
 $env:MEMORY_ENABLE_DEVELOPMENT_TENANT_RESOLVER = "true"
-conda run -n memory uvicorn service.main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
 ~~~
 
 验证：
@@ -125,7 +125,7 @@ conda activate memory
 cd D:\project\memorydemo\chatbot
 
 if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-conda run -n memory python -m pip install -r requirements.txt
+pip install -r requirements.txt
 ~~~
 
 编辑 D:\project\memorydemo\chatbot\.env，至少填写：
@@ -141,7 +141,7 @@ CHATBOT_WORKSPACE_ID=chatbot_ws
 启动并验证：
 
 ~~~powershell
-conda run -n memory uvicorn main:app --host 127.0.0.1 --port 8787 --reload
+uvicorn main:app --host 127.0.0.1 --port 8787 --reload
 Invoke-RestMethod http://127.0.0.1:8787/health
 ~~~
 
@@ -152,7 +152,7 @@ Invoke-RestMethod http://127.0.0.1:8787/health
 ~~~powershell
 conda activate memory
 cd D:\project\memorydemo\front
-conda run -n memory python -m http.server 5500
+python -m http.server 5500
 ~~~
 
 浏览器打开 http://127.0.0.1:5500/，页面默认配置为：
@@ -311,9 +311,9 @@ Navicat 可以连接 PostgreSQL（也可打开 SQLite 文件，取决于 Navicat
 
 ~~~powershell
 cd D:\project\memorydemo\backend
-conda run -n memory ruff format --check src/service tests scripts migrations
-conda run -n memory ruff check src/service tests scripts migrations
-conda run -n memory mypy src/service
+conda run -n memory ruff format --check src tests scripts migrations
+conda run -n memory ruff check src tests scripts migrations
+conda run -n memory mypy src
 conda run -n memory python -m pytest
 ~~~
 
@@ -344,11 +344,16 @@ docker compose --profile container-api up --build
 ## 目录说明
 
 ~~~text
-backend/src/service/auth/             TenantContext 和解析器
-backend/src/service/domain/           枚举、领域模型、命令和结果 schema
-backend/src/service/services/         write/read/consolidate/retrieval/governance/lifecycle
-backend/src/service/ports/            Repository、缓存、向量、图谱、LLM、Job Port
-backend/src/service/infrastructure/   PostgreSQL、Redis、pgvector、图谱和默认适配器
+backend/src/main.py              FastAPI 应用入口
+backend/src/bootstrap.py         Service 和 Infrastructure 依赖组装
+backend/src/api/                 HTTP 接口、依赖和路由
+backend/src/service/             应用服务、TenantContext 和跨领域支撑模块
+backend/src/service/write/       原始写入和 Consolidate Once
+backend/src/service/read/        检索和 Context Package
+backend/src/service/governance/  长期候选治理和索引规划
+backend/src/domain/              枚举、领域模型、命令和结果 schema
+backend/src/ports/               Repository、缓存、向量、图谱、LLM、Job Port
+backend/src/infrastructure/      PostgreSQL、Redis、pgvector、图谱和默认适配器
 backend/migrations/            Alembic 迁移
 backend/tests/                unit、integration、security、fixtures
 backend/scripts/run_demo.py   health/ready 基础演示

@@ -7,17 +7,17 @@ import pytest
 
 from service.auth.tenant_context import TenantContext
 from service.core.errors import ResourceNotFoundError
-from service.domain.commands import ReadMemoryRequest
-from service.domain.enums import MemoryStatus, MemoryType, RetrievalMode
-from service.domain.models import (
+from domain.commands import ReadMemoryRequest
+from domain.enums import MemoryStatus, MemoryType, RetrievalMode
+from domain.models import (
     Evidence,
     LongTermMemory,
     RetrievalPlan,
     Scope,
     TaskCheckpoint,
 )
-from service.infrastructure.consolidation import DeterministicConsolidator
-from service.infrastructure.memory import (
+from infrastructure.consolidation import DeterministicConsolidator
+from infrastructure.memory import (
     InMemoryExactKeyStore,
     InMemoryGraphStore,
     InMemoryRetrievalStore,
@@ -26,11 +26,11 @@ from service.infrastructure.memory import (
     InMemoryWriteDatabase,
     InMemoryWriteUnitOfWorkFactory,
 )
-from service.services.consolidate_once import ConsolidateOnceService
-from service.services.consolidation_policy import ConsolidationPolicy
-from service.services.context_compiler import DefaultContextCompiler
-from service.services.default_memory_service import DefaultMemoryService
-from service.services.retrieval_service import (
+from service.write.consolidate_once import ConsolidateOnceService
+from service.write.consolidation_policy import ConsolidationPolicy
+from service.read.context_compiler import DefaultContextCompiler
+from service.memory_facade import DefaultMemoryService
+from service.read.retrieval_service import (
     DefaultRetrievalService,
     MetaPolicy,
     RetrievalRouter,

@@ -9,8 +9,8 @@ from collections.abc import Sequence
 
 from alembic import op
 
-from service.infrastructure.db import models as memory_models
-from service.infrastructure.db.base import Base
+from infrastructure.db import models as memory_models
+from infrastructure.db.base import Base
 
 revision: str = "20260731_0001"
 down_revision: str | None = None

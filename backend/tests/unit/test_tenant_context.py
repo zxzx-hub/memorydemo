@@ -10,8 +10,8 @@ from service.auth.tenant_context import TenantContext
 from service.auth.tenant_resolver import DevelopmentTenantResolver
 from service.core.errors import TenantContextRequiredError
 from service.core.health import ReadinessProbe
-from service.main import create_app
-from service.services.memory_service import MemoryService
+from main import create_app
+from service.memory_service import MemoryService
 from tests.fixtures.tenants import TestTenantResolver
 
 

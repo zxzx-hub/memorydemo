@@ -26,7 +26,7 @@
 
 - `AGENTS.md`
 - `backend/docs/agent-memory-design.html`
-- `docs/implementation-plan.md`
+- `backend/docs/implementation-plan.md`
 - `docs/domain-model.md`
 - `backend/docs/api-contract.md`
 - `docs/architecture-decisions.md`
@@ -95,9 +95,9 @@
 
 主要文件：
 
-- `backend/src/service/domain/commands.py`
-- `backend/src/service/domain/results.py`
-- `backend/src/service/services/default_memory_service.py`
+- `backend/src/domain/commands.py`
+- `backend/src/domain/results.py`
+- `backend/src/service/memory_facade.py`
 
 ### 3.2 原始事件和 Working Memory
 
@@ -129,11 +129,11 @@
 
 主要文件：
 
-- `backend/src/service/services/consolidate_once.py`
-- `backend/src/service/infrastructure/consolidation/deterministic.py`
-- `backend/src/service/infrastructure/db/repositories/write.py`
-- `backend/src/service/infrastructure/redis/working_memory.py`
-- `backend/src/service/infrastructure/memory/in_memory.py`
+- `backend/src/service/write/consolidate_once.py`
+- `backend/src/infrastructure/consolidation/deterministic.py`
+- `backend/src/infrastructure/db/repositories/write.py`
+- `backend/src/infrastructure/redis/working_memory.py`
+- `backend/src/infrastructure/memory/in_memory.py`
 
 ## 4. 提示词 4：已做但尚未完成的内容
 
@@ -160,14 +160,14 @@
 
 相关文件：
 
-- `backend/src/service/services/candidate_governance.py`
-- `backend/src/service/services/projection_planner.py`
-- `backend/src/service/ports/governance_advisor.py`
-- `backend/src/service/ports/governance_store.py`
-- `backend/src/service/ports/index_projector.py`
-- `backend/src/service/infrastructure/governance/`
-- `backend/src/service/infrastructure/memory/governance.py`
-- `backend/src/service/infrastructure/db/repositories/governance.py`
+- `backend/src/service/governance/candidate_governance.py`
+- `backend/src/service/governance/projection_planner.py`
+- `backend/src/ports/governance_advisor.py`
+- `backend/src/ports/governance_store.py`
+- `backend/src/ports/index_projector.py`
+- `backend/src/infrastructure/governance/`
+- `backend/src/infrastructure/memory/governance.py`
+- `backend/src/infrastructure/db/repositories/governance.py`
 - `migrations/versions/20260731_0003_governance_state.py`
 
 ### 4.2 未完成和未验证项
@@ -336,17 +336,17 @@
 
 ### 5.9 主要 Read 文件
 
-- `backend/src/service/services/retrieval_service.py`
-- `backend/src/service/services/context_compiler.py`
-- `backend/src/service/ports/retrieval_store.py`
-- `backend/src/service/ports/retrieval_plan_provider.py`
-- `backend/src/service/infrastructure/retrieval/`
-- `backend/src/service/infrastructure/db/repositories/retrieval.py`
-- `backend/src/service/infrastructure/db/repositories/exact_key.py`
-- `backend/src/service/infrastructure/vector/postgresql.py`
-- `backend/src/service/infrastructure/graph/postgresql.py`
-- `backend/src/service/infrastructure/memory/retrieval.py`
-- `backend/src/service/main.py`
+- `backend/src/service/read/retrieval_service.py`
+- `backend/src/service/read/context_compiler.py`
+- `backend/src/ports/retrieval_store.py`
+- `backend/src/ports/retrieval_plan_provider.py`
+- `backend/src/infrastructure/retrieval/`
+- `backend/src/infrastructure/db/repositories/retrieval.py`
+- `backend/src/infrastructure/db/repositories/exact_key.py`
+- `backend/src/infrastructure/vector/postgresql.py`
+- `backend/src/infrastructure/graph/postgresql.py`
+- `backend/src/infrastructure/memory/retrieval.py`
+- `backend/src/main.py`
 
 ## 6. 已编写的 Read 测试
 
@@ -493,7 +493,7 @@ conda run -n memory alembic current
 ```powershell
 conda run -n memory ruff format --check .
 conda run -n memory ruff check .
-conda run -n memory mypy src/service
+conda run -n memory mypy src
 conda run -n memory python -m pytest
 ```
 

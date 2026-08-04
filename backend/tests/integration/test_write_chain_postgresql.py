@@ -11,14 +11,14 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from service.domain.commands import (
+from domain.commands import (
     ConsolidateWriteRequest,
     EventInput,
     EventWriteRequest,
 )
-from service.domain.enums import ConsolidationReason
-from service.infrastructure.consolidation import DeterministicConsolidator
-from service.infrastructure.db.models.memory import (
+from domain.enums import ConsolidationReason
+from infrastructure.consolidation import DeterministicConsolidator
+from infrastructure.db.models.memory import (
     ConsolidationCursorModel,
     MemoryCandidateModel,
     MemoryEventModel,
@@ -26,13 +26,13 @@ from service.infrastructure.db.models.memory import (
     OutboxJobModel,
     TaskCheckpointModel,
 )
-from service.infrastructure.db.repositories.write import (
+from infrastructure.db.repositories.write import (
     SqlAlchemyWriteUnitOfWorkFactory,
 )
-from service.infrastructure.memory import InMemoryWorkingMemoryStore
-from service.services.consolidate_once import ConsolidateOnceService
-from service.services.consolidation_policy import ConsolidationPolicy
-from service.services.default_memory_service import DefaultMemoryService
+from infrastructure.memory import InMemoryWorkingMemoryStore
+from service.write.consolidate_once import ConsolidateOnceService
+from service.write.consolidation_policy import ConsolidationPolicy
+from service.memory_facade import DefaultMemoryService
 from tests.fixtures.tenants import TestTenantResolver
 
 pytestmark = pytest.mark.integration

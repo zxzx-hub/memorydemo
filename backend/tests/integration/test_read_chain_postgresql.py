@@ -12,21 +12,21 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from service.domain.commands import ReadMemoryRequest
-from service.domain.enums import RetrievalMode
-from service.infrastructure.db.models.memory import (
+from domain.commands import ReadMemoryRequest
+from domain.enums import RetrievalMode
+from infrastructure.db.models.memory import (
     LongTermMemoryModel,
     MemoryUsageStatsModel,
 )
-from service.infrastructure.db.repositories.retrieval import SqlAlchemyRetrievalStore
-from service.infrastructure.memory import (
+from infrastructure.db.repositories.retrieval import SqlAlchemyRetrievalStore
+from infrastructure.memory import (
     InMemoryExactKeyStore,
     InMemoryGraphStore,
     InMemoryVectorStore,
 )
-from service.infrastructure.retrieval import DeterministicRetrievalPlanProvider
-from service.services.context_compiler import DefaultContextCompiler
-from service.services.retrieval_service import (
+from infrastructure.retrieval import DeterministicRetrievalPlanProvider
+from service.read.context_compiler import DefaultContextCompiler
+from service.read.retrieval_service import (
     DefaultRetrievalService,
     MetaPolicy,
     RetrievalRouter,

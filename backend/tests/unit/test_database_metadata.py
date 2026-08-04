@@ -2,8 +2,8 @@
 
 from sqlalchemy import ForeignKeyConstraint, UniqueConstraint
 
-from service.infrastructure.db import models as memory_models
-from service.infrastructure.db.base import Base
+from infrastructure.db import models as memory_models
+from infrastructure.db.base import Base
 
 _ = memory_models
 
