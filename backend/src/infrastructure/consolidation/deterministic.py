@@ -3,7 +3,6 @@
 from collections.abc import Sequence
 from hashlib import sha256
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import MemoryType
 from domain.models import (
     ConsolidateOnceOutput,
@@ -15,6 +14,7 @@ from domain.models import (
     TaskCheckpoint,
     WorkingMemory,
 )
+from service.auth.tenant_context import TenantContext
 
 _PREFERENCE_PHRASE = "以后给我讲技术方案时，先讲总体架构，再展开字段和代码"
 # Retain the original trigger phrase so existing tests still pass.
@@ -55,22 +55,28 @@ class DeterministicConsolidator:
         evidence_by_event = {
             item.source_event_ids[0]: item.evidence_id for item in evidence
         }
-        candidates: list[LongTermCandidate] = []
+        candidate_list: list[LongTermCandidate] = []
         for event in events:
             if event.role == "user":
-                candidates.append(
-                    self._user_message_candidate(ctx, workspace_id, event, evidence_by_event)
+                candidate_list.append(
+                    self._user_message_candidate(
+                        ctx, workspace_id, event, evidence_by_event
+                    )
                 )
             elif event.role == "assistant":
-                candidates.append(
-                    self._assistant_message_candidate(ctx, workspace_id, event, evidence_by_event)
+                candidate_list.append(
+                    self._assistant_message_candidate(
+                        ctx, workspace_id, event, evidence_by_event
+                    )
                 )
             # legacy: still pick up the design-doc trigger phrase as a PREFERENCE
             if _PREFERENCE_PHRASE in event.content.rstrip("。"):
-                candidates.append(
-                    self._preference_candidate(ctx, workspace_id, event, evidence_by_event)
+                candidate_list.append(
+                    self._preference_candidate(
+                        ctx, workspace_id, event, evidence_by_event
+                    )
                 )
-        candidates = tuple(candidates)
+        candidates = tuple(candidate_list)
         task_id = next(
             (event.task_id for event in reversed(events) if event.task_id),
             None,

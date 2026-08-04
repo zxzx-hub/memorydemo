@@ -3,8 +3,8 @@
 import pytest
 from pydantic import TypeAdapter, ValidationError
 
-from service.core.config import Settings
 from domain.commands import WriteRequest
+from service.core.config import Settings
 
 
 def test_settings_are_read_from_environment(

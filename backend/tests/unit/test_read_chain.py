@@ -5,8 +5,6 @@ from hashlib import sha256
 
 import pytest
 
-from service.auth.tenant_context import TenantContext
-from service.core.errors import ResourceNotFoundError
 from domain.commands import ReadMemoryRequest
 from domain.enums import MemoryStatus, MemoryType, RetrievalMode
 from domain.models import (
@@ -26,16 +24,18 @@ from infrastructure.memory import (
     InMemoryWriteDatabase,
     InMemoryWriteUnitOfWorkFactory,
 )
-from service.write.consolidate_once import ConsolidateOnceService
-from service.write.consolidation_policy import ConsolidationPolicy
-from service.read.context_compiler import DefaultContextCompiler
+from service.auth.tenant_context import TenantContext
+from service.core.errors import ResourceNotFoundError
 from service.memory_facade import MemoryServiceFacade
+from service.read.context_compiler import DefaultContextCompiler
 from service.read.retrieval_service import (
     DefaultRetrievalService,
     MetaPolicy,
     RetrievalRouter,
     RetrievalWeights,
 )
+from service.write.consolidate_once import ConsolidateOnceService
+from service.write.consolidation_policy import ConsolidationPolicy
 
 
 class FixedClock:

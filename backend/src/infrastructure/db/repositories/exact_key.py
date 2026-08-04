@@ -3,9 +3,9 @@
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from service.auth.tenant_context import TenantContext
 from infrastructure.db.models.memory import MemoryExactKeyModel
 from infrastructure.db.repositories.base import require_repository_context
+from service.auth.tenant_context import TenantContext
 
 
 class SqlAlchemyExactKeyStore:

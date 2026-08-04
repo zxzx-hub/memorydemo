@@ -3,7 +3,6 @@
 from dataclasses import dataclass
 from math import ceil
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import MemoryType
 from domain.models import (
     ContextMeta,
@@ -15,6 +14,7 @@ from domain.models import (
     TokenUsage,
 )
 from ports.retrieval_store import RetrievalStore
+from service.auth.tenant_context import TenantContext
 
 
 @dataclass(frozen=True, slots=True)

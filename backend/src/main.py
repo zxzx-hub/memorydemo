@@ -10,6 +10,8 @@ from api.error_handlers import register_error_handlers
 from api.routes.health import router as health_router
 from api.routes.memory import router as memory_router
 from bootstrap import build_memory_service
+from infrastructure.db.session import DatabaseSessionManager
+from infrastructure.redis.client import RedisConnection
 from service.auth.middleware import TenantContextMiddleware
 from service.auth.tenant_resolver import (
     DevelopmentTenantResolver,
@@ -18,8 +20,6 @@ from service.auth.tenant_resolver import (
 from service.core.config import Settings, get_settings
 from service.core.health import ReadinessProbe
 from service.core.logging import configure_logging
-from infrastructure.db.session import DatabaseSessionManager
-from infrastructure.redis.client import RedisConnection
 from service.memory_service import MemoryService
 
 

@@ -1,8 +1,8 @@
 """Network-free governance suggestions used by default."""
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import GovernanceAction
 from domain.models import GovernanceSuggestion, LongTermCandidate
+from service.auth.tenant_context import TenantContext
 
 
 class DeterministicGovernanceAdvisor:

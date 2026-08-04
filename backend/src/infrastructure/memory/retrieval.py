@@ -3,7 +3,6 @@
 from collections.abc import Sequence
 from datetime import datetime
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import MemoryType
 from domain.models import (
     EvidenceExcerpt,
@@ -12,6 +11,7 @@ from domain.models import (
     TaskCheckpointView,
 )
 from infrastructure.memory.in_memory import InMemoryWriteDatabase
+from service.auth.tenant_context import TenantContext
 
 
 class InMemoryRetrievalStore:

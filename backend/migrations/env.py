@@ -7,9 +7,9 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from service.core.config import get_settings
 from infrastructure.db import models as memory_models
 from infrastructure.db.base import Base
+from service.core.config import get_settings
 
 _ = memory_models
 

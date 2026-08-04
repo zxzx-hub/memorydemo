@@ -30,9 +30,9 @@ from infrastructure.db.repositories.write import (
     SqlAlchemyWriteUnitOfWorkFactory,
 )
 from infrastructure.memory import InMemoryWorkingMemoryStore
+from service.memory_facade import MemoryServiceFacade
 from service.write.consolidate_once import ConsolidateOnceService
 from service.write.consolidation_policy import ConsolidationPolicy
-from service.memory_facade import MemoryServiceFacade
 from tests.fixtures.tenants import TestTenantResolver
 
 pytestmark = pytest.mark.integration

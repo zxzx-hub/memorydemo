@@ -3,7 +3,6 @@
 from collections.abc import Sequence
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.models import (
     AuditLog,
     Evidence,
@@ -16,6 +15,7 @@ from domain.models import (
     RawEvent,
     TaskCheckpoint,
 )
+from service.auth.tenant_context import TenantContext
 
 
 class RawEventRepository(Protocol):

@@ -2,9 +2,9 @@
 
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.commands import GcMemoryRequest
 from domain.results import GcMemoryResult
+from service.auth.tenant_context import TenantContext
 
 
 class LifecycleService(Protocol):

@@ -8,7 +8,6 @@ from dataclasses import dataclass, field
 from types import TracebackType
 from typing import Self
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import IndexStatus, IndexType
 from domain.models import (
     AuditLog,
@@ -21,6 +20,7 @@ from domain.models import (
     TaskCheckpoint,
     WorkingMemory,
 )
+from service.auth.tenant_context import TenantContext
 
 
 @dataclass

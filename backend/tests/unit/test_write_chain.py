@@ -4,7 +4,6 @@ from datetime import UTC, datetime
 
 import pytest
 
-from service.auth.tenant_context import TenantContext
 from domain.commands import (
     ConsolidateWriteRequest,
     EventInput,
@@ -22,9 +21,10 @@ from infrastructure.memory import (
     InMemoryWriteDatabase,
     InMemoryWriteUnitOfWorkFactory,
 )
+from service.auth.tenant_context import TenantContext
+from service.memory_facade import MemoryServiceFacade
 from service.write.consolidate_once import ConsolidateOnceService
 from service.write.consolidation_policy import ConsolidationPolicy
-from service.memory_facade import MemoryServiceFacade
 
 
 class FixedClock:

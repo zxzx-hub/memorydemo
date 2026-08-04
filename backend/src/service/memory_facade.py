@@ -2,10 +2,6 @@
 
 from hashlib import sha256
 
-from service.auth.tenant_context import TenantContext
-from service.core.clock import Clock
-from service.core.errors import FeatureNotAvailableError
-from service.core.ids import new_id
 from domain.commands import (
     ConsolidateWriteRequest,
     EventWriteRequest,
@@ -29,9 +25,13 @@ from domain.results import (
 )
 from ports.working_memory_store import WorkingMemoryStore
 from ports.write_store import WriteUnitOfWorkFactory
+from service.auth.tenant_context import TenantContext
+from service.core.clock import Clock
+from service.core.errors import FeatureNotAvailableError
+from service.core.ids import new_id
+from service.read.retrieval_service import DefaultRetrievalService
 from service.write.consolidate_once import ConsolidateOnce
 from service.write.consolidation_policy import ConsolidationPolicy
-from service.read.retrieval_service import DefaultRetrievalService
 
 
 def _operation_id(ctx: TenantContext, value: str) -> str:

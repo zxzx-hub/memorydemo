@@ -7,7 +7,6 @@ from sqlalchemy import or_, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import MemoryStatus, MemoryType
 from domain.models import (
     EvidenceExcerpt,
@@ -24,6 +23,7 @@ from infrastructure.db.models.memory import (
     TaskCheckpointModel,
 )
 from infrastructure.db.repositories.base import require_repository_context
+from service.auth.tenant_context import TenantContext
 
 
 class SqlAlchemyRetrievalStore:

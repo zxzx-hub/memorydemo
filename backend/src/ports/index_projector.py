@@ -2,9 +2,9 @@
 
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import IndexType
 from domain.models import LongTermMemory
+from service.auth.tenant_context import TenantContext
 
 
 class IndexProjector(Protocol):

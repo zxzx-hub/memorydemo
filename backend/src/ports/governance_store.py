@@ -4,7 +4,6 @@ from collections.abc import Sequence
 from types import TracebackType
 from typing import Protocol, Self
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import GovernanceAction, IndexStatus, IndexType
 from domain.models import (
     AuditLog,
@@ -13,6 +12,7 @@ from domain.models import (
     LongTermMemory,
     MemoryVersion,
 )
+from service.auth.tenant_context import TenantContext
 
 
 class GovernanceTransaction(Protocol):

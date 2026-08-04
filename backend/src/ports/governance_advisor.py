@@ -2,8 +2,8 @@
 
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.models import GovernanceSuggestion, LongTermCandidate
+from service.auth.tenant_context import TenantContext
 
 
 class GovernanceAdvisor(Protocol):

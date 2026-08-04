@@ -4,9 +4,6 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from hashlib import sha256
 
-from service.auth.tenant_context import TenantContext
-from service.core.clock import Clock
-from service.core.errors import ResourceNotFoundError
 from domain.enums import GovernanceAction, IndexStatus, IndexType, MemoryStatus
 from domain.models import (
     AuditLog,
@@ -23,6 +20,9 @@ from ports.governance_store import (
     GovernanceTransaction,
     GovernanceUnitOfWorkFactory,
 )
+from service.auth.tenant_context import TenantContext
+from service.core.clock import Clock
+from service.core.errors import ResourceNotFoundError
 from service.governance.projection_planner import ProjectionPlanner
 
 

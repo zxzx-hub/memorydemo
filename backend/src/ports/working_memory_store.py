@@ -3,8 +3,8 @@
 from contextlib import AbstractAsyncContextManager
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.models import WorkingMemory
+from service.auth.tenant_context import TenantContext
 
 
 class WorkingMemoryStore(Protocol):

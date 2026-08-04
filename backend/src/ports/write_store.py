@@ -4,13 +4,13 @@ from collections.abc import Sequence
 from types import TracebackType
 from typing import Protocol, Self
 
-from service.auth.tenant_context import TenantContext
 from domain.models import (
     Evidence,
     LongTermCandidate,
     RawEvent,
     TaskCheckpoint,
 )
+from service.auth.tenant_context import TenantContext
 
 
 class WriteTransaction(Protocol):

@@ -4,7 +4,6 @@ from collections.abc import Sequence
 from datetime import datetime
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.enums import MemoryType
 from domain.models import (
     EvidenceExcerpt,
@@ -12,6 +11,7 @@ from domain.models import (
     ScopeFilter,
     TaskCheckpointView,
 )
+from service.auth.tenant_context import TenantContext
 
 
 class RetrievalStore(Protocol):

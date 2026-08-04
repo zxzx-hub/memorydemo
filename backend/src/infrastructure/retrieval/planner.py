@@ -2,10 +2,10 @@
 
 import re
 
-from service.auth.tenant_context import TenantContext
 from domain.commands import ReadMemoryRequest
 from domain.enums import RetrievalMode
 from domain.models import RetrievalPlan
+from service.auth.tenant_context import TenantContext
 
 
 class DeterministicRetrievalPlanProvider:

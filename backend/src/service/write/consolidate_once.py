@@ -4,7 +4,6 @@ from collections.abc import Sequence
 from hashlib import sha256
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.models import (
     ConsolidateOnceOutput,
     ConsolidationTrigger,
@@ -14,6 +13,7 @@ from domain.models import (
 from ports.consolidator import Consolidator
 from ports.working_memory_store import WorkingMemoryStore
 from ports.write_store import WriteTransaction, WriteUnitOfWorkFactory
+from service.auth.tenant_context import TenantContext
 
 
 class ConsolidateOnce(Protocol):

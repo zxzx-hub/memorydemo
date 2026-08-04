@@ -5,13 +5,13 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, status
 
 from api.dependencies import get_memory_service, require_tenant_context
-from service.auth.tenant_context import TenantContext
 from domain.commands import (
     GcMemoryRequest,
     ReadMemoryRequest,
     WriteRequest,
 )
 from domain.results import GcMemoryResult, ReadMemoryResult, WriteResult
+from service.auth.tenant_context import TenantContext
 from service.memory_service import MemoryService
 
 router = APIRouter(prefix="/v1/memory", tags=["memory"])

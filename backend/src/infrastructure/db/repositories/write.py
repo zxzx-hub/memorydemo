@@ -11,7 +11,6 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
 )
 
-from service.auth.tenant_context import TenantContext
 from domain.models import (
     Evidence,
     LongTermCandidate,
@@ -29,6 +28,7 @@ from infrastructure.db.models.memory import (
     WorkingMemoryModel,
 )
 from infrastructure.db.repositories.base import require_repository_context
+from service.auth.tenant_context import TenantContext
 
 
 class SqlAlchemyWriteTransaction:

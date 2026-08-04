@@ -8,8 +8,6 @@ from sqlalchemy import select, update
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from service.auth.tenant_context import TenantContext
-from service.core.errors import VersionConflictError
 from domain.enums import (
     GovernanceAction,
     IndexStatus,
@@ -35,6 +33,8 @@ from infrastructure.db.models.memory import (
     OutboxJobModel,
 )
 from infrastructure.db.repositories.base import require_repository_context
+from service.auth.tenant_context import TenantContext
+from service.core.errors import VersionConflictError
 
 
 class SqlAlchemyGovernanceTransaction:

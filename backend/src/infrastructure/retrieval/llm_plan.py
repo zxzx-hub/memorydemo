@@ -2,12 +2,12 @@
 
 from pydantic import ValidationError
 
-from service.auth.tenant_context import TenantContext
 from domain.commands import ReadMemoryRequest
 from domain.enums import RetrievalMode
 from domain.models import RetrievalPlan
 from ports.llm_client import LLMClient
 from ports.retrieval_plan_provider import RetrievalPlanProvider
+from service.auth.tenant_context import TenantContext
 
 
 class LLMRetrievalPlanProvider:

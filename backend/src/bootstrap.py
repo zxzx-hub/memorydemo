@@ -1,7 +1,5 @@
 """Application dependency assembly for the local MVP runtime."""
 
-from service.core.clock import SystemClock
-from service.core.config import Settings
 from infrastructure.consolidation import DeterministicConsolidator
 from infrastructure.db.repositories.exact_key import SqlAlchemyExactKeyStore
 from infrastructure.db.repositories.retrieval import SqlAlchemyRetrievalStore
@@ -16,6 +14,8 @@ from infrastructure.retrieval import (
     LLMRetrievalPlanProvider,
 )
 from infrastructure.vector import PostgreSQLVectorStore
+from service.core.clock import SystemClock
+from service.core.config import Settings
 from service.memory_facade import MemoryServiceFacade
 from service.read.context_compiler import DefaultContextCompiler
 from service.read.retrieval_service import (

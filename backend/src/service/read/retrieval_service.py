@@ -4,9 +4,6 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from datetime import datetime
 
-from service.auth.tenant_context import TenantContext
-from service.core.clock import Clock
-from service.core.errors import ResourceNotFoundError
 from domain.commands import ReadMemoryRequest
 from domain.enums import MemoryStatus, MemoryType, RetrievalMode
 from domain.models import (
@@ -25,6 +22,9 @@ from ports.graph_store import GraphStore
 from ports.retrieval_plan_provider import RetrievalPlanProvider
 from ports.retrieval_store import RetrievalStore
 from ports.vector_store import VectorStore
+from service.auth.tenant_context import TenantContext
+from service.core.clock import Clock
+from service.core.errors import ResourceNotFoundError
 from service.read.context_compiler import DefaultContextCompiler
 
 

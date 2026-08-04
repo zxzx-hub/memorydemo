@@ -2,13 +2,13 @@
 
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.commands import (
     GcMemoryRequest,
     ReadMemoryRequest,
     WriteRequest,
 )
 from domain.results import GcMemoryResult, ReadMemoryResult, WriteResult
+from service.auth.tenant_context import TenantContext
 
 
 class MemoryService(Protocol):

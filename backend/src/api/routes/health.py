@@ -2,12 +2,12 @@
 
 from fastapi import APIRouter, Request, Response, status
 
-from service.core.health import ReadinessProbe
 from domain.schemas import (
     DependencyStatusResponse,
     HealthResponse,
     ReadinessResponse,
 )
+from service.core.health import ReadinessProbe
 
 router = APIRouter(tags=["operations"])
 

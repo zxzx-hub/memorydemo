@@ -6,11 +6,11 @@ from typing import cast
 import pytest
 from fastapi.testclient import TestClient
 
+from main import create_app
 from service.auth.tenant_context import TenantContext
 from service.auth.tenant_resolver import DevelopmentTenantResolver
 from service.core.errors import TenantContextRequiredError
 from service.core.health import ReadinessProbe
-from main import create_app
 from service.memory_service import MemoryService
 from tests.fixtures.tenants import TestTenantResolver
 

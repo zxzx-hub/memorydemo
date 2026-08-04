@@ -3,12 +3,12 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from service.auth.tenant_context import TenantContext
 from infrastructure.db.models.memory import TaskMemoryModel
 from infrastructure.db.repositories.base import (
     TenantScopedRepository,
     require_repository_context,
 )
+from service.auth.tenant_context import TenantContext
 
 
 class SqlAlchemyTaskMemoryRepository(TenantScopedRepository):

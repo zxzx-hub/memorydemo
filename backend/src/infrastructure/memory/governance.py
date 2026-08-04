@@ -5,8 +5,6 @@ from copy import deepcopy
 from types import TracebackType
 from typing import Self
 
-from service.auth.tenant_context import TenantContext
-from service.core.errors import VersionConflictError
 from domain.enums import GovernanceAction, IndexStatus, IndexType, MemoryStatus
 from domain.models import (
     AuditLog,
@@ -16,6 +14,8 @@ from domain.models import (
     MemoryVersion,
 )
 from infrastructure.memory.in_memory import InMemoryWriteDatabase
+from service.auth.tenant_context import TenantContext
+from service.core.errors import VersionConflictError
 
 
 class InMemoryGovernanceTransaction:

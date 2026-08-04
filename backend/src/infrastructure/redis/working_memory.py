@@ -5,9 +5,9 @@ from contextlib import asynccontextmanager
 
 from redis.asyncio import Redis
 
-from service.auth.tenant_context import TenantContext
 from domain.models import WorkingMemory
 from infrastructure.redis.keys import tenant_redis_key
+from service.auth.tenant_context import TenantContext
 
 
 class RedisWorkingMemoryStore:

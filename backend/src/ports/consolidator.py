@@ -3,13 +3,13 @@
 from collections.abc import Sequence
 from typing import Protocol
 
-from service.auth.tenant_context import TenantContext
 from domain.models import (
     ConsolidateOnceOutput,
     ConsolidationTrigger,
     RawEvent,
     WorkingMemory,
 )
+from service.auth.tenant_context import TenantContext
 
 
 class Consolidator(Protocol):
