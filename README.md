@@ -357,6 +357,16 @@ front/index.html          独立浏览器演示页面
 front/app.js              聊天、读取、Consolidate、GC 调试按钮
 ~~~
 
+### 本地生成物与清理边界
+
+`__pycache__/`、`.pytest_cache/` 等目录由 Python 工具自动生成，不属于源码，
+可以随时删除，后续运行服务或测试时会自动重建。`.codebuddy/.tmp/` 只用于临时
+检查，也不属于运行链路。后端的 ExactKey 能力由 `ports/` 和数据库 Repository
+实现，不依赖单独的 `infrastructure/exact/` 目录。
+
+`backend/docs/` 中的领域设计、API 契约、实施计划和验收文档是项目资料，不参与
+运行时加载；本次清理不会移动或删除其中任何文件。
+
 ## 下一步实现建议
 
 1. 接入 Outbox Worker，按冻结的 tenant_id 调用 CandidateGovernanceService；
