@@ -1,0 +1,295 @@
+# Generated from `conda run -n memory pip list --format=freeze`
+# Generated on: 2026-08-04
+# Excludes: pip, setuptools, wheel (Conda / system built-ins)
+# Python: 3.12.13
+
+# ----------------------------------------------------------------------
+# Web framework & ASGI server
+# ----------------------------------------------------------------------
+annotated-doc==0.0.4
+anyio==4.14.2
+click==8.4.2
+fastapi==0.119.0
+h11==0.16.0
+httpcore==1.0.9
+httptools==0.8.0
+httpx==0.28.1
+httpx-sse==0.4.3
+idna==3.18
+python-multipart==0.0.32
+simple-websocket==1.1.0
+sniffio==1.3.1
+starlette==0.48.0
+uvicorn==0.37.0
+watchfiles==1.2.0
+websocket-client==1.9.0
+websockets==15.0.1
+wsproto==1.3.2
+
+# ----------------------------------------------------------------------
+# Data validation & settings (Pydantic v2)
+# ----------------------------------------------------------------------
+annotated-types==0.8.0
+email-validator==2.3.0
+pydantic==2.12.2
+pydantic-settings==2.14.2
+pydantic_core==2.41.4
+typing-inspection==0.4.2
+typing_extensions==4.16.0
+
+# ----------------------------------------------------------------------
+# Database, ORM, migrations, vector & graph
+# ----------------------------------------------------------------------
+alembic==1.17.0
+asyncpg==0.31.0
+greenlet==3.2.4
+Mako==1.3.12
+neo4j==6.2.0
+pgvector==0.5.0
+psycopg2-binary==2.9.11
+redis==6.4.0
+SQLAlchemy==2.0.44
+
+# ----------------------------------------------------------------------
+# Async / concurrency helpers
+# ----------------------------------------------------------------------
+aiofile==3.11.1
+aiofiles==25.1.0
+aiohappyeyeballs==2.7.1
+aiohttp==3.14.1
+aioitertools==0.13.0
+aiosignal==1.4.0
+beartype==0.22.9
+bidict==0.23.1
+caio==0.9.25
+croniter==6.2.4
+Deprecated==1.3.1
+ecdsa==0.19.2
+frozenlist==1.8.0
+librt==0.13.0
+more-itertools==11.1.0
+multidict==6.7.1
+orjson==3.11.9
+ormsgpack==1.12.2
+propcache==0.5.2
+shortuuid==1.0.13
+tenacity==9.1.4
+uuid_utils==0.17.0
+yarl==1.24.2
+
+# ----------------------------------------------------------------------
+# Auth / JWT / cryptography
+# ----------------------------------------------------------------------
+Authlib==1.7.2
+bcrypt==5.0.0
+cffi==2.1.0
+cryptography==49.0.0
+joserfc==1.7.3
+passlib==1.7.4
+pyasn1==0.6.4
+pycparser==3.0
+PyJWT==2.13.0
+python-jose==3.5.0
+rsa==4.9.1
+
+# ----------------------------------------------------------------------
+# LLM providers & AI / agent SDKs
+# ----------------------------------------------------------------------
+agentscope==2.0.4
+anthropic==0.116.0
+claude-agent-sdk==0.2.120
+dashscope==1.26.3
+jiter==0.16.0
+ollama==0.6.2
+openai==2.45.0
+reme-ai==0.4.1.0
+volcengine-python-sdk==5.0.19
+xinference-client==3.0.0
+
+# ----------------------------------------------------------------------
+# LangChain / LangGraph ecosystem
+# ----------------------------------------------------------------------
+langchain==1.3.14
+langchain-aws==1.6.4
+langchain-classic==1.0.8
+langchain-community==0.4.2
+langchain-core==1.5.2
+langchain-mcp-adapters==0.3.1
+langchain-ollama==1.1.0
+langchain-openai==1.4.1
+langchain-protocol==0.0.18
+langchain-text-splitters==1.1.2
+langgraph==1.2.10
+langgraph-checkpoint==4.1.1
+langgraph-prebuilt==1.1.0
+langgraph-sdk==0.4.2
+langsmith==0.10.11
+py-key-value-aio==0.4.5
+tiktoken==0.13.0
+
+# ----------------------------------------------------------------------
+# MCP (Model Context Protocol) servers / clients
+# ----------------------------------------------------------------------
+fastmcp==3.4.4
+fastmcp-slim==3.4.4
+mcp==1.28.1
+
+# ----------------------------------------------------------------------
+# Retrieval / similarity / NLP
+# ----------------------------------------------------------------------
+faiss-cpu==1.14.3
+jieba==0.42.1
+networkx==3.6.1
+numpy==2.4.6
+regex==2026.7.19
+rjieba==0.2.1
+
+# ----------------------------------------------------------------------
+# File parsing / document loaders
+# ----------------------------------------------------------------------
+filetype==1.2.0
+olefile==0.47
+python-frontmatter==1.3.0
+
+# ----------------------------------------------------------------------
+# Templating / markup
+# ----------------------------------------------------------------------
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+
+# ----------------------------------------------------------------------
+# JSON / serialization / schemas
+# ----------------------------------------------------------------------
+docstring_parser==0.18.0
+json_repair==0.61.5
+json5==0.15.0
+jsonpatch==1.33
+jsonpointer==3.1.1
+jsonref==1.1.0
+jsonschema==4.26.0
+jsonschema-path==0.5.0
+jsonschema-specifications==2025.9.1
+openapi-pydantic==0.5.1
+pathable==0.6.0
+referencing==0.37.0
+rpds-py==2026.6.3
+
+# ----------------------------------------------------------------------
+# HTTP clients / AWS / cloud SDK
+# ----------------------------------------------------------------------
+amqp==5.3.1
+billiard==4.2.4
+boto3==1.43.58
+botocore==1.43.58
+celery==5.5.3
+jmespath==1.1.0
+kombu==5.5.4
+requests==2.34.2
+requests-toolbelt==1.0.0
+s3transfer==0.19.2
+urllib3==2.7.0
+vine==5.1.0
+
+# ----------------------------------------------------------------------
+# Observability (OpenTelemetry)
+# ----------------------------------------------------------------------
+googleapis-common-protos==1.75.0
+grpcio==1.82.1
+opentelemetry-api==1.43.0
+opentelemetry-exporter-otlp==1.43.0
+opentelemetry-exporter-otlp-proto-common==1.43.0
+opentelemetry-exporter-otlp-proto-grpc==1.43.0
+opentelemetry-exporter-otlp-proto-http==1.43.0
+opentelemetry-proto==1.43.0
+opentelemetry-sdk==1.43.0
+opentelemetry-semantic-conventions==0.64b0
+protobuf==7.35.1
+
+# ----------------------------------------------------------------------
+# Terminal / CLI helpers
+# ----------------------------------------------------------------------
+colorama==0.4.6
+cyclopts==4.21.0
+loguru==0.7.3
+prompt_toolkit==3.0.53
+Pygments==2.20.0
+pyperclip==1.11.0
+rich==15.0.0
+rich-rst==2.1.0
+shellingham==1.5.4
+typer==0.27.0
+wcwidth==0.8.2
+
+# ----------------------------------------------------------------------
+# Configuration / env
+# ----------------------------------------------------------------------
+dnspython==2.8.0
+platformdirs==4.10.0
+python-dotenv==1.2.2
+python-socketio==5.16.3
+PyYAML==6.0.3
+
+# ----------------------------------------------------------------------
+# Testing
+# ----------------------------------------------------------------------
+iniconfig==2.3.0
+pluggy==1.6.0
+pytest==9.1.1
+pytest-asyncio==1.4.0
+ruff==0.16.1
+mypy==1.20.2
+mypy_extensions==1.1.0
+pathspec==1.1.1
+click-didyoumean==0.3.1
+click-plugins==1.1.1.2
+click-repl==0.3.0
+
+# ----------------------------------------------------------------------
+# Date / time / utilities
+# ----------------------------------------------------------------------
+attrs==26.1.0
+backports.tarfile==1.2.0
+cached-property==2.0.1
+cachetools==7.1.4
+certifi==2026.6.17
+charset-normalizer==3.4.9
+distro==1.9.0
+exceptiongroup==1.3.1
+griffelib==2.1.0
+importlib_metadata==9.0.0
+jaraco.classes==3.4.0
+jaraco.context==6.1.2
+jaraco.functools==4.6.0
+keyring==25.7.0
+markdown-it-py==4.2.0
+mdurl==0.1.2
+mistletoe==1.6.0
+packaging==26.0
+psutil==7.2.2
+python-datauri==3.0.2
+python-dateutil==2.9.0.post0
+python-engineio==4.13.3
+pytz==2026.2
+six==1.17.0
+sse-starlette==3.4.5
+tqdm==4.68.4
+tree-sitter==0.26.0
+tree-sitter-bash==0.25.1
+tzdata==2026.3
+uncalled-for==0.3.2
+wrapt==2.3.0
+xxhash==3.8.1
+zipp==4.1.0
+zstandard==0.25.0
+
+# ----------------------------------------------------------------------
+# Windows-specific (retain for Windows dev machines)
+# ----------------------------------------------------------------------
+pywin32==312
+pywin32-ctypes==0.2.3
+win32_setctime==1.2.0
+
+# ----------------------------------------------------------------------
+# Local project (this repo)
+# ----------------------------------------------------------------------
+agent-memory-service==0.1.0

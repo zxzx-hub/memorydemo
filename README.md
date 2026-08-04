@@ -11,6 +11,159 @@ memorydemo/
 
 `front/` 和 `chatbot/` 都不挂载到 `api/app/main.py`。后端只负责 API、数据库、缓存和领域服务；前端和聊天机器人独立启动，只通过 HTTP 访问后端。
 
+## 快速运行：四个窗口启动
+
+现在这个项目建议按“四个窗口”启动：
+
+```text
+1. Docker：PostgreSQL + Redis
+2. api：memorydemo 后端，端口 8000
+3. chatbot：聊天机器人，端口 8787
+4. front：前端页面，端口 5500
+```
+
+先确保进入 conda 环境：
+
+```powershell
+conda activate memory
+```
+
+### 一、启动数据库和 Redis
+
+```powershell
+cd D:\project\memorydemo
+docker compose up -d postgres redis
+```
+
+### 二、启动后端 API
+
+新开一个 PowerShell：
+
+```powershell
+conda activate memory
+cd D:\project\memorydemo\api
+
+alembic upgrade head
+
+$env:MEMORY_ENABLE_DEVELOPMENT_TENANT_RESOLVER = "true"
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+验证：
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8000/health
+Invoke-RestMethod http://127.0.0.1:8000/ready
+```
+
+正常应该看到：
+
+```text
+/health -> status: ok
+/ready  -> status: ready
+```
+
+### 三、启动 chatbot
+
+新开一个 PowerShell：
+
+```powershell
+conda activate memory
+cd D:\project\memorydemo\chatbot
+```
+
+如果还没有 `.env`：
+
+```powershell
+Copy-Item .env.example .env
+```
+
+然后打开：
+
+```text
+D:\project\memorydemo\chatbot\.env
+```
+
+确认里面有：
+
+```text
+DEEPSEEK_API_KEY=你的key
+MEMORY_SERVICE_URL=http://127.0.0.1:8000
+```
+
+启动 chatbot：
+
+```powershell
+uvicorn main:app --host 127.0.0.1 --port 8787 --reload
+```
+
+验证：
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8787/health
+```
+
+正常应该看到：
+
+```text
+ok: true
+memory_service_ok: true
+```
+
+### 四、启动前端页面
+
+新开一个 PowerShell：
+
+```powershell
+conda activate memory
+cd D:\project\memorydemo\front
+python -m http.server 5500
+```
+
+然后浏览器打开：
+
+```text
+http://127.0.0.1:5500
+```
+
+页面里的地址保持：
+
+```text
+Chatbot Base: http://127.0.0.1:8787
+API Base:     http://127.0.0.1:8000
+Tenant ID:    tenant_a
+User ID:      user_demo
+Workspace:    chatbot_ws
+Session/Task: demo
+```
+
+然后点：
+
+```text
+检查链路
+```
+
+如果正常，就可以直接聊天。
+
+完整链路是：
+
+```text
+front:5500
+  -> chatbot:8787
+  -> api:8000
+  -> PostgreSQL:5432 / Redis:6379
+```
+
+如果你想一条条检查端口：
+
+```powershell
+Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -in 5500,8000,8787,5432,6379 }
+```
+
+如果以后端口冲突，通常是旧服务没关。可以先关闭对应 PowerShell，或者检查是哪一个进程占用了端口。
+
+> 下方章节是各部分的详细说明。
+
 ## 当前能力
 
 - FastAPI 应用工厂
