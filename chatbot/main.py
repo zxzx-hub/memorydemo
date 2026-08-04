@@ -75,7 +75,11 @@ def get_llm_client() -> AsyncOpenAI:
             status_code=500,
             detail="chatbot/.env 中缺少 DEEPSEEK_API_KEY",
         )
-    return AsyncOpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
+    return AsyncOpenAI(
+        api_key=DEEPSEEK_API_KEY,
+        base_url=DEEPSEEK_BASE_URL,
+        timeout=httpx.Timeout(60.0, connect=10.0),
+    )
 
 
 class ChatRequest(BaseModel):
