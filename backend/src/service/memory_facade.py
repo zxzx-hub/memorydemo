@@ -39,7 +39,7 @@ def _operation_id(ctx: TenantContext, value: str) -> str:
     return f"operation_{digest}"
 
 
-class DefaultMemoryService:
+class MemoryServiceFacade:
     """Expose one write method while routing its three discriminated commands."""
 
     def __init__(

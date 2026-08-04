@@ -24,7 +24,7 @@ from infrastructure.memory import (
 )
 from service.write.consolidate_once import ConsolidateOnceService
 from service.write.consolidation_policy import ConsolidationPolicy
-from service.memory_facade import DefaultMemoryService
+from service.memory_facade import MemoryServiceFacade
 
 
 class FixedClock:
@@ -36,7 +36,7 @@ def build_service(
     database: InMemoryWriteDatabase | None = None,
     consolidator: DeterministicConsolidator | None = None,
 ) -> tuple[
-    DefaultMemoryService,
+    MemoryServiceFacade,
     InMemoryWriteDatabase,
     InMemoryWorkingMemoryStore,
 ]:
@@ -48,7 +48,7 @@ def build_service(
         working_store,
         consolidator or DeterministicConsolidator(),
     )
-    service = DefaultMemoryService(
+    service = MemoryServiceFacade(
         factory,
         working_store,
         consolidate_once,
@@ -286,7 +286,7 @@ async def test_thresholds_come_from_policy_configuration(
         store,
         DeterministicConsolidator(),
     )
-    service = DefaultMemoryService(
+    service = MemoryServiceFacade(
         factory,
         store,
         consolidate,

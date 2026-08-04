@@ -16,7 +16,7 @@ from infrastructure.retrieval import (
     LLMRetrievalPlanProvider,
 )
 from infrastructure.vector import PostgreSQLVectorStore
-from service.memory_facade import DefaultMemoryService
+from service.memory_facade import MemoryServiceFacade
 from service.read.context_compiler import DefaultContextCompiler
 from service.read.retrieval_service import (
     DefaultRetrievalService,
@@ -32,7 +32,7 @@ def build_memory_service(
     settings: Settings,
     database: DatabaseSessionManager,
     redis: RedisConnection,
-) -> DefaultMemoryService:
+) -> MemoryServiceFacade:
     """Build the concrete MemoryService and its tenant-safe adapters."""
 
     working_memory_store = RedisWorkingMemoryStore(
@@ -69,7 +69,7 @@ def build_memory_service(
         ),
         SystemClock(),
     )
-    return DefaultMemoryService(
+    return MemoryServiceFacade(
         write_factory,
         working_memory_store,
         consolidate_once,

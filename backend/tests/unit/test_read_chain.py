@@ -29,7 +29,7 @@ from infrastructure.memory import (
 from service.write.consolidate_once import ConsolidateOnceService
 from service.write.consolidation_policy import ConsolidationPolicy
 from service.read.context_compiler import DefaultContextCompiler
-from service.memory_facade import DefaultMemoryService
+from service.memory_facade import MemoryServiceFacade
 from service.read.retrieval_service import (
     DefaultRetrievalService,
     MetaPolicy,
@@ -72,7 +72,7 @@ class CountingPlanProvider:
 
 
 def build_service() -> tuple[
-    DefaultMemoryService,
+    MemoryServiceFacade,
     InMemoryWriteDatabase,
     InMemoryExactKeyStore,
     InMemoryVectorStore,
@@ -103,7 +103,7 @@ def build_service() -> tuple[
         RetrievalWeights(),
         FixedClock(),
     )
-    service = DefaultMemoryService(
+    service = MemoryServiceFacade(
         write_factory,
         working_store,
         consolidate,

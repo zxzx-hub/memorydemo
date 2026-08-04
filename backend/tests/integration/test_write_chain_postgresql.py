@@ -32,7 +32,7 @@ from infrastructure.db.repositories.write import (
 from infrastructure.memory import InMemoryWorkingMemoryStore
 from service.write.consolidate_once import ConsolidateOnceService
 from service.write.consolidation_policy import ConsolidationPolicy
-from service.memory_facade import DefaultMemoryService
+from service.memory_facade import MemoryServiceFacade
 from tests.fixtures.tenants import TestTenantResolver
 
 pytestmark = pytest.mark.integration
@@ -88,7 +88,7 @@ async def test_postgresql_write_chain_commits_one_sibling_set_and_cursor(
         working_store,
         DeterministicConsolidator(),
     )
-    service = DefaultMemoryService(
+    service = MemoryServiceFacade(
         write_factory,
         working_store,
         consolidate_once,
