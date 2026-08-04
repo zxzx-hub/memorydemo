@@ -31,7 +31,7 @@ services:
     profiles:
       - container-api
     build:
-      context: ./api
+      context: ./backend
     environment:
       MEMORY_DATABASE_URL: postgresql+asyncpg://memory:memory@postgres:5432/memory
       MEMORY_REDIS_URL: redis://redis:6379/0

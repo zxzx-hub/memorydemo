@@ -5,10 +5,10 @@
 主流程是：
 
 ```text
-front -> chatbot -> api -> PostgreSQL / Redis
+front -> chatbot -> backend API -> PostgreSQL / Redis
 ```
 
-用户在页面和机器人聊天；`chatbot/` 调用大模型生成回答，并通过 `api/` 读写记忆。页面也保留了直接调用 `api/` 的调试按钮。
+用户在页面和机器人聊天；`chatbot/` 调用大模型生成回答，并通过 `backend/` 中运行的 API 读写记忆。页面也保留了直接调用记忆 API 的调试按钮。
 
 ## 🚀 启动步骤
 
@@ -26,10 +26,10 @@ docker compose up -d postgres redis
 再启动 API：
 
 ```powershell
-cd D:\project\memorydemo\api
+cd D:\project\memorydemo\backend
 conda run -n memory alembic upgrade head
 $env:MEMORY_ENABLE_DEVELOPMENT_TENANT_RESOLVER = "true"
-conda run -n memory uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+conda run -n memory uvicorn service.main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
 ```
 
 后端 API 地址默认为：

@@ -25,16 +25,16 @@
 已存在：
 
 - `AGENTS.md`
-- `docs/agent-memory-design.html`
+- `backend/docs/agent-memory-design.html`
 - `docs/implementation-plan.md`
 - `docs/domain-model.md`
-- `docs/api-contract.md`
+- `backend/docs/api-contract.md`
 - `docs/architecture-decisions.md`
 - `docs/test-matrix.md`
 - `implementation-plan.md`
 - `README.md`
 
-注意：`docs/api-contract.md` 尚未同步提示词 3、4、5 的最终请求和响应结构，后续需要更新。
+注意：`backend/docs/api-contract.md` 尚未同步提示词 3、4、5 的最终请求和响应结构，后续需要更新。
 
 ### 2.2 TenantContext 与隔离
 
@@ -95,9 +95,9 @@
 
 主要文件：
 
-- `app/domain/commands.py`
-- `app/domain/results.py`
-- `app/services/default_memory_service.py`
+- `backend/src/service/domain/commands.py`
+- `backend/src/service/domain/results.py`
+- `backend/src/service/services/default_memory_service.py`
 
 ### 3.2 原始事件和 Working Memory
 
@@ -129,11 +129,11 @@
 
 主要文件：
 
-- `app/services/consolidate_once.py`
-- `app/infrastructure/consolidation/deterministic.py`
-- `app/infrastructure/db/repositories/write.py`
-- `app/infrastructure/redis/working_memory.py`
-- `app/infrastructure/memory/in_memory.py`
+- `backend/src/service/services/consolidate_once.py`
+- `backend/src/service/infrastructure/consolidation/deterministic.py`
+- `backend/src/service/infrastructure/db/repositories/write.py`
+- `backend/src/service/infrastructure/redis/working_memory.py`
+- `backend/src/service/infrastructure/memory/in_memory.py`
 
 ## 4. 提示词 4：已做但尚未完成的内容
 
@@ -160,14 +160,14 @@
 
 相关文件：
 
-- `app/services/candidate_governance.py`
-- `app/services/projection_planner.py`
-- `app/ports/governance_advisor.py`
-- `app/ports/governance_store.py`
-- `app/ports/index_projector.py`
-- `app/infrastructure/governance/`
-- `app/infrastructure/memory/governance.py`
-- `app/infrastructure/db/repositories/governance.py`
+- `backend/src/service/services/candidate_governance.py`
+- `backend/src/service/services/projection_planner.py`
+- `backend/src/service/ports/governance_advisor.py`
+- `backend/src/service/ports/governance_store.py`
+- `backend/src/service/ports/index_projector.py`
+- `backend/src/service/infrastructure/governance/`
+- `backend/src/service/infrastructure/memory/governance.py`
+- `backend/src/service/infrastructure/db/repositories/governance.py`
 - `migrations/versions/20260731_0003_governance_state.py`
 
 ### 4.2 未完成和未验证项
@@ -318,7 +318,7 @@
 
 配置字段位于：
 
-- `app/core/config.py`
+- `backend/src/service/core/config.py`
 - `.env.example`
 
 当前 token 估算规则是近似的 `ceil(字符数 / 4)`，后续可以替换为真实 tokenizer。
@@ -336,17 +336,17 @@
 
 ### 5.9 主要 Read 文件
 
-- `app/services/retrieval_service.py`
-- `app/services/context_compiler.py`
-- `app/ports/retrieval_store.py`
-- `app/ports/retrieval_plan_provider.py`
-- `app/infrastructure/retrieval/`
-- `app/infrastructure/db/repositories/retrieval.py`
-- `app/infrastructure/db/repositories/exact_key.py`
-- `app/infrastructure/vector/postgresql.py`
-- `app/infrastructure/graph/postgresql.py`
-- `app/infrastructure/memory/retrieval.py`
-- `app/main.py`
+- `backend/src/service/services/retrieval_service.py`
+- `backend/src/service/services/context_compiler.py`
+- `backend/src/service/ports/retrieval_store.py`
+- `backend/src/service/ports/retrieval_plan_provider.py`
+- `backend/src/service/infrastructure/retrieval/`
+- `backend/src/service/infrastructure/db/repositories/retrieval.py`
+- `backend/src/service/infrastructure/db/repositories/exact_key.py`
+- `backend/src/service/infrastructure/vector/postgresql.py`
+- `backend/src/service/infrastructure/graph/postgresql.py`
+- `backend/src/service/infrastructure/memory/retrieval.py`
+- `backend/src/service/main.py`
 
 ## 6. 已编写的 Read 测试
 
@@ -451,7 +451,7 @@ Alembic offline SQL 检查成功：
 2. 默认 Deep 确定性计划会生成关系类型，但没有自动抽取实体；没有实体时 PostgreSQL GraphStore 返回空结果。真实 LLM plan 或规则实体抽取需后续补充。
 3. 当前 META 权限只能依据 TenantContext 的 principal 以及请求中可核对的 workspace/agent；TenantContext 尚未携带完整 project/agent claims，因此 project scope 默认不会被授权。
 4. token 预算使用近似字符估算，不是模型 tokenizer。
-5. `docs/api-contract.md`、`docs/domain-model.md` 和 README 尚未同步新 Read 契约。
+5. `backend/docs/api-contract.md`、`backend/docs/domain-model.md` 和 README 尚未同步新 Read 契约。
 6. 尚未增加真实 FastAPI `/v1/memory/read` 成功响应集成测试。
 
 ### 工作区说明
@@ -493,7 +493,7 @@ conda run -n memory alembic current
 ```powershell
 conda run -n memory ruff format --check .
 conda run -n memory ruff check .
-conda run -n memory mypy app
+conda run -n memory mypy src/service
 conda run -n memory python -m pytest
 ```
 
@@ -536,4 +536,3 @@ conda run -n memory python -m pytest tests/unit/test_read_chain.py -vv
 - vector/graph/exact 命中后都重新读取同租户 active 主记录
 - 只有最终 Context Package 记录增加 `use_count`
 - API 和领域文档已同步当前 schema
-

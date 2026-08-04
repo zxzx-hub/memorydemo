@@ -4,14 +4,14 @@
 
 ~~~text
 memorydemo/
-├─ api/       FastAPI 记忆后端、领域模型、数据库迁移、测试和演示脚本
+├─ backend/       FastAPI 记忆后端、领域模型、数据库迁移、测试和演示脚本
 ├─ chatbot/   独立 FastAPI 聊天机器人，调用 DeepSeek 和 memory API
 ├─ front/     独立静态演示页面，浏览器通过 HTTP 访问 chatbot/API
 ├─ docker-compose.yml  PostgreSQL/pgvector 和 Redis
 └─ AGENTS.md  工程约束
 ~~~
 
-front/ 和 chatbot/ 不挂载到 api/app/main.py。后端只负责 API、数据库、Redis 和记忆领域服务；三个应用通过 HTTP 连接。
+front/ 和 chatbot/ 不挂载到 backend/src/service/main.py。后端只负责 API、数据库、Redis 和记忆领域服务；三个应用通过 HTTP 连接。
 
 ## 当前链路
 
@@ -92,13 +92,13 @@ Redis:      127.0.0.1:6379 / database=0
 
 ~~~powershell
 conda activate memory
-cd D:\project\memorydemo\api
+cd D:\project\memorydemo\backend
 
 conda run -n memory python -m pip install -e ".[dev]"
 conda run -n memory alembic upgrade head
 
 $env:MEMORY_ENABLE_DEVELOPMENT_TENANT_RESOLVER = "true"
-conda run -n memory uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+conda run -n memory uvicorn service.main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
 ~~~
 
 验证：
@@ -307,13 +307,13 @@ Navicat 可以连接 PostgreSQL（也可打开 SQLite 文件，取决于 Navicat
 
 ## 测试和质量检查
 
-后端命令都从 api/ 目录、在 memory 环境执行：
+后端命令都从 backend/ 目录、在 memory 环境执行：
 
 ~~~powershell
-cd D:\project\memorydemo\api
-conda run -n memory ruff format --check app tests scripts migrations
-conda run -n memory ruff check app tests scripts migrations
-conda run -n memory mypy app
+cd D:\project\memorydemo\backend
+conda run -n memory ruff format --check src/service tests scripts migrations
+conda run -n memory ruff check src/service tests scripts migrations
+conda run -n memory mypy src/service
 conda run -n memory python -m pytest
 ~~~
 
@@ -344,14 +344,14 @@ docker compose --profile container-api up --build
 ## 目录说明
 
 ~~~text
-api/app/auth/             TenantContext 和解析器
-api/app/domain/           枚举、领域模型、命令和结果 schema
-api/app/services/         write/read/consolidate/retrieval/governance/lifecycle
-api/app/ports/            Repository、缓存、向量、图谱、LLM、Job Port
-api/app/infrastructure/   PostgreSQL、Redis、pgvector、图谱和默认适配器
-api/migrations/            Alembic 迁移
-api/tests/                unit、integration、security、fixtures
-api/scripts/run_demo.py   health/ready 基础演示
+backend/src/service/auth/             TenantContext 和解析器
+backend/src/service/domain/           枚举、领域模型、命令和结果 schema
+backend/src/service/services/         write/read/consolidate/retrieval/governance/lifecycle
+backend/src/service/ports/            Repository、缓存、向量、图谱、LLM、Job Port
+backend/src/service/infrastructure/   PostgreSQL、Redis、pgvector、图谱和默认适配器
+backend/migrations/            Alembic 迁移
+backend/tests/                unit、integration、security、fixtures
+backend/scripts/run_demo.py   health/ready 基础演示
 chatbot/main.py           聊天 API、SQLite 会话和 memory API 客户端
 front/index.html          独立浏览器演示页面
 front/app.js              聊天、读取、Consolidate、GC 调试按钮
@@ -367,10 +367,10 @@ front/app.js              聊天、读取、Consolidate、GC 调试按钮
 
 ## 设计文档
 
-- [实施计划](api/docs/implementation-plan.md)
-- [领域模型](api/docs/domain-model.md)
-- [API 契约](api/docs/api-contract.md)
-- [架构决策](api/docs/architecture-decisions.md)
-- [测试矩阵](api/docs/test-matrix.md)
-- [领域架构事实来源](api/docs/agent-memory-design.html)
+- [实施计划](backend/docs/implementation-plan.md)
+- [领域模型](backend/docs/domain-model.md)
+- [API 契约](backend/docs/api-contract.md)
+- [架构决策](backend/docs/architecture-decisions.md)
+- [测试矩阵](backend/docs/test-matrix.md)
+- [领域架构事实来源](backend/docs/agent-memory-design.html)
 - [工程约束](AGENTS.md)

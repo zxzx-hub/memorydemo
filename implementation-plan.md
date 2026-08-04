@@ -1,6 +1,6 @@
 # 实施计划入口
 
-详细分阶段计划见 [`api/docs/implementation-plan.md`](api/docs/implementation-plan.md)。
+详细分阶段计划见 [`backend/docs/implementation-plan.md`](backend/docs/implementation-plan.md)。
 
 ## 阶段顺序
 
@@ -21,9 +21,9 @@
 
 相关说明：
 
-- [领域模型](api/docs/domain-model.md)
-- [API 契约](api/docs/api-contract.md)
-- [架构决策](api/docs/architecture-decisions.md)
-- [测试矩阵](api/docs/test-matrix.md)
+- [领域模型](backend/docs/domain-model.md)
+- [API 契约](backend/docs/api-contract.md)
+- [架构决策](backend/docs/architecture-decisions.md)
+- [测试矩阵](backend/docs/test-matrix.md)
 
 下一阶段从领域模型和 Alembic 业务迁移开始，不得绕过 TenantContext 或提前把派生索引作为内容来源。

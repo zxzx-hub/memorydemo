@@ -3,7 +3,7 @@
 这是一个用于连接 `memorydemo` 后端的轻量 FastAPI 聊天机器人。
 
 ```text
-chatbot -> memorydemo api -> PostgreSQL / Redis
+chatbot -> memorydemo backend API -> PostgreSQL / Redis
 ```
 
 chatbot 负责：
@@ -36,10 +36,11 @@ docker compose up -d postgres redis
 ### 2. 启动 memorydemo 后端
 
 ```powershell
-cd D:\project\memorydemo\api
+cd D:\project\memorydemo\backend
+conda run -n memory python -m pip install -e ".[dev]"
 conda run -n memory alembic upgrade head
 $env:MEMORY_ENABLE_DEVELOPMENT_TENANT_RESOLVER = "true"
-conda run -n memory uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+conda run -n memory uvicorn service.main:app --app-dir src --host 0.0.0.0 --port 8000 --reload
 ```
 
 验证：
